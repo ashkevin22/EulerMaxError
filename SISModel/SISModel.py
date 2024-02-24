@@ -32,7 +32,8 @@ def analytical(t, beta, gamma):
     return K/denom
 
 # params to change
-t_arr = [2, 1, 0.5]
+t_arr = [2, 1, 1/2, 1/4, 1/8, 1/16, 1/32]
+max_error_arr = []
 t_final = 25
 beta = 3
 gamma = 2
@@ -56,4 +57,12 @@ for t in t_arr:
     # max error for each solution
     Euler = np.divide(I_arr, N)
     diff = np.abs(Euler - y_arr)
+    max_error_arr.append(max(diff))
     print("max absolute error for t=" + str(t) + ": " + str(max(diff)))
+
+plt.loglog(t_arr, max_error_arr, marker='*', color='r')
+plt.title('Max Error for dt (Kevin)')
+plt.xlabel('dt', fontsize=12)
+plt.ylabel('E(dt)', fontsize=12)
+
+plt.savefig('MaxError.png')
